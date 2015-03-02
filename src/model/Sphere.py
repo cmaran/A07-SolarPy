@@ -2,7 +2,6 @@ __author__ = 'cmaran'
 
 from OpenGL.GL import *
 from OpenGL.GLUT import *
-from OpenGL.GLU import *
 from logging import warning
 
 sphere_locations = [(0, 0)]
@@ -44,7 +43,7 @@ glutInit()
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
 glutInitWindowSize(550, 550)
 glutInitWindowPosition(50, 50)
-glutCreateWindow("Bubble Pop")
+glutCreateWindow("Test Spheres")
 glutDisplayFunc(display)
 glutMouseFunc(on_click)
 init()
