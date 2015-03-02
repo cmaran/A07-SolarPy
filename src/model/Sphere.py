@@ -4,7 +4,9 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from logging import warning
+
 sphere_locations = [(0, 0)]
+
 
 def init():
     glClearColor(1.0, 1.0, 1.0, 0.0)
@@ -12,8 +14,8 @@ def init():
     glPointSize(5.0)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluOrtho2D(0.0, 100.0, 0.0, 100.0)
-    glEnable(GL_DEPTH_TEST)                              
+    glOrtho(0.0, 550.0, 550.0, 0.0, -100.0, 100.0);
+    glEnable(GL_DEPTH_TEST)
 
 
 def on_click(button, state, x, y):
@@ -31,16 +33,15 @@ def display():
         glPushMatrix()
         glTranslatef(x, y, 1.0)
         glColor3f(0.0, 1.0, 0.0)
-        glutSolidSphere(0.3, 250, 250)
+        glutSolidSphere(15, 250, 250)
         glPopMatrix()
     glFlush()
     glutSwapBuffers()
     glutPostRedisplay()
 
 
-
 glutInit()
-glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH )
+glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
 glutInitWindowSize(550, 550)
 glutInitWindowPosition(50, 50)
 glutCreateWindow("Bubble Pop")
