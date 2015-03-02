@@ -18,6 +18,14 @@ def init():
 
 
 def on_click(button, state, x, y):
+    """
+    Mittels Mausclick Spheren erstellen
+    :param button:
+    :param state:
+    :param x:
+    :param y:
+    :return:
+    """
     global sphere_locations
     if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
         warning("CLICK")
