@@ -7,7 +7,7 @@ from pygame.locals import *
 pygame.init()
 
 
-img = pygame.image.load("res/galaxy.jpg")
+img = pygame.image.load("res/splashscreen_v1.jpg")
 x = 1920
 y = 1080
 setDisplay = pygame.display.set_mode((x, y))
