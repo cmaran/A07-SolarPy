@@ -14,139 +14,118 @@ from utils.Light import Light
 from sphere.Moon import Moon
 
 
-
-mode = 1
-speed = 1
-rotation = speed
+mode = 1    #Modus um zwischen den Anzeigen(Splashscreen->OpenGl) zu, welchsen
+speed = 1   #Standardgeschwindigkeit
+rotation = speed #Rotationsgeschwindigkeit
 distance = 0
-lightOn = True
-animation = True
-view = 1
-i = 1
+lightOn = True  #Flag fürs Lighting
+animation = True    #Flag um die Animation zu starten/stoppen
+view = 1        #Kameraview (default: 1)
 
 pygame.init()
-
 window = Window()
-
-window.setup(1650,1050)
-
+window.setup(1650, 1050)    #Setzt die Fenstergröße fest
 textures = Texture()
-
 sun = Sun()
 planets = Planet()
 moon = Moon()
-
 light = Light()
-
 
 while True:
     if mode == 1:
-        window.screen.blit(window.splashscreen, (0, 0))
+        """
+        Modus 1:
+        Splashscreen
+        Keybindings:
+        ESC-> Um das Fenster zu schließen
+        ENTER->Um zur OpenGl View zu wechseln
+        """
+        window.screen.blit(window.splash
+                           , (0, 0))
 
         for event in pygame.event.get():
-
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
             elif event.type == KEYDOWN:
-                if event.key == K_SPACE:
+                if event.key == K_RETURN:
                     mode = 2
-
         pygame.time.wait(1)
 
     elif mode == 2:
+        """
+        Modus 2:
+        Lädt die Texturen
+        Erzeugt die Spheren-Matrix
+        Und lädt das Licht
+        """
         window.setupGL()
-
         glEnable(GL_TEXTURE_2D)
+        textures.setupTexture()
+        light.setup()
         sphere = gluNewQuadric()
         gluQuadricNormals(sphere, GL_FLAT)
         gluQuadricTexture(sphere, GL_TRUE)
-        textures.setupTexture()
-        light.setupLight()
-
         mode = 3
 
     elif mode == 3:
-
+        """
+        Modus 3:
+        Planetenmodell
+        Keybindings:
+        ESC-> Um das Fenster zu schließen
+        PFEIL RECHTS-> Rotationsgeschwindigkeit erhöhen
+        PFEIL LINKS -> Rotationsgeschwindigkeit verringern
+        S -> Animation stoppen/starten
+        L -> Lighting an/aus
+        1 -> Kameraview Seite
+        2 -> Kameraview Oben
+        """
+        textures.setupTexture()
+        light.setup()
         rotation += speed
 
+        #setzen der Kameraview 1
         if distance == 0 and view == 1:
-            gluLookAt(1,5,1,0,0,0,0,1,0)
+            gluLookAt(1, 5, 1, 0, 0, 0, 0, 1, 0)
             distance = 1
+        #setzen der Kameraview 2
         elif distance == 0 and view == 2:
-            gluLookAt(0,0,10,0,0,0,0,1,0)
+            gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0)
             distance = 1
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-
-        glPushMatrix()
+        glPushMatrix() #Setzen der Sonne
         glRotatef(rotation, 0, 1, 0)
         if lightOn:
             glDisable(GL_LIGHTING)
-        sun.setUp(1, sphere, textures.sunTexture)
+        sun.setUp(1, sphere, textures.sunTexture, 50, 50)
         if lightOn:
             glEnable(GL_LIGHTING)
-        glPopMatrix()
+        glPopMatrix() 
 
-        glPushMatrix()
-        glRotatef(0.5 * rotation, 0, 1, 0.3)
-        glTranslatef(2, 0, 0)
-        planets.setUp(0.035, sphere, textures.mercuryTexture)
-        glPopMatrix()
-
+        #Setzen des Planet 1
         glPushMatrix()
         glRotatef(1.6 * rotation, 0, 1, 0.3)
         glTranslatef(3, 0, 0)
-        planets.setUp(0.085, sphere, textures.venusTexture)
+        planets.setUp(0.085, sphere, textures.venusTexture, 50, 50)
         glPopMatrix()
 
+        #Setzen der Planet 2
         glPushMatrix()
         glRotatef(rotation, 0, 1, 0.3)
         glTranslatef(4, 0, 0)
-        glRotatef(rotation*3, 0, 1, 0)
-        planets.setUp(0.09, sphere, textures.earthTexture)
+        glRotatef(rotation * 3, 0, 1, 0)
+        planets.setUp(0.09, sphere, textures.earthTexture, 50, 50)
 
-        glRotatef(-rotation*5, 0, 1, 0)
-        glRotatef(12 * rotation, 0, 1, 0)
+        #Setzen der Mond
+        glRotatef(rotation * 2, 0, 1, 0)
+        glRotatef(7 * rotation, 0, 1, 0)
         glTranslatef(0.2, 0, 0.1)
-        moon.setUp(0.025, sphere, textures.moonTexture)
-        glPopMatrix()
-
-        glPushMatrix()
-        glRotatef(rotation / 2, 0, 1, 0.3)
-        glTranslatef(5, 0, 0)
-        planets.setUp(0.049, sphere, textures.marsTexture)
-        glPopMatrix()
-
-        glPushMatrix()
-        glRotatef(rotation / 12, 0, 1, 0.3)
-        glTranslatef(7, 0, 0)
-        planets.setUp(0.302, sphere, textures.jupiterTexture)
-        glPopMatrix()
-
-        glPushMatrix()
-        glRotatef(rotation / 30, 0, 1, 0.3)
-        glTranslatef(9, 0, 0)
-        planets.setUp(0.256, sphere, textures.saturnTexture)
-        glPopMatrix()
-
-        glPushMatrix()
-        glRotatef(rotation / 84, 0, 1, 0.3)
-        glTranslatef(11, 0, 0)
-        planets.setUp(0.127, sphere, textures.uranusTexture)
-        glPopMatrix()
-
-        glPushMatrix()
-        glRotatef(rotation / 164, 0, 1, 0.3)
-        glTranslatef(12, 0, 0)
-        planets.setUp(0.127, sphere, textures.neptunTexture)
+        moon.setUp(0.025, sphere, textures.moonTexture, 50, 50)
         glPopMatrix()
 
 
         pygame.time.wait(1)
-
-
 
         for event in pygame.event.get():
 
@@ -155,7 +134,7 @@ while True:
                 sys.exit()
 
             elif event.type == KEYDOWN:
-                if event.key == K_SPACE:
+                if event.key == K_RETURN:
                     mode = 4
                     distance = 0
                 if event.key == pygame.K_RIGHT and speed < 5:
@@ -163,7 +142,7 @@ while True:
                 if event.key == pygame.K_LEFT and speed >= 0:
                     speed -= 0.1
 
-                if event.key == pygame.K_s :
+                if event.key == pygame.K_s:
                     if animation == False:
                         animation = True
                         speed = 1
@@ -182,38 +161,30 @@ while True:
                 if event.key == pygame.K_1 and view == 1:
                     view = 2
                     glLoadIdentity()
-                    gluPerspective(window.fov, (window.size[0] / window.size[1]), 0.1, 100)
+                    gluPerspective(window.fieldOfView, (window.size[0] / window.size[1]), 0.1, 100)
                     distance = 0
 
                 if event.key == pygame.K_2 and view == 2:
                     view = 1
                     glLoadIdentity()
-                    gluPerspective(window.fov, (window.size[0] / window.size[1]), 0.1, 100)
+                    gluPerspective(window.fieldOfView, (window.size[0] / window.size[1]), 0.1, 100)
                     distance = 0
-
-
 
             elif event.type == MOUSEBUTTONDOWN:
-                if event.button == 4 and window.fov > 0:
-                    window.fov -= 5
+                if event.button == 4 and window.fieldOfView > 0:
+                    window.fieldOfView -= 5
                     glLoadIdentity()
-
-                    gluPerspective(window.fov, (window.size[0] / window.size[1]), 1.0, 100)
+                    gluPerspective(window.fieldOfView, (window.size[0] / window.size[1]), 1.0, 100)
                     distance = 0
 
-                elif event.button == 5 and window.fov < 500:
-                    window.fov += 5
+                elif event.button == 5 and window.fieldOfView < 500:
+                    window.fieldOfView += 5
                     glLoadIdentity()
-                    gluPerspective(window.fov, (window.size[0] / window.size[1]), 1.0, 100)
+                    gluPerspective(window.fieldOfView, (window.size[0] / window.size[1]), 1.0, 100)
                     distance = 0
-
         glFlush()
 
 
-    elif mode == 4:
-        window.reset()
-        mode = 1
-
-    pygame.display.flip()
+    pygame.display.flip() #Aktualisiert die Anzeige auf die Bildschirmoberfläche
 
 

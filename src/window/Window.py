@@ -7,31 +7,36 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 class Window:
-
+    """
+    Fenster - Grundfläche
+    """
     screen = None
-    splashscreen = None
+    splash = None
     size = None
     fieldOfView = 100
 
-    def setup(self, sizex, sizey):
+    def setup(self, x, y):
+        """
+        Erzeugt das Fenster
+        Laedt den Splashscreen und setzt den Titel
+        :param x: Auflösung - x
+        :param y: Auflösung - y
+        :return:
+        """
 
-        self.size = width, height = sizex, sizey
-
-        self.splashscreen = pygame.image.load('splashscreen_v1.jpg')
-        self.splashscreen = pygame.transform.scale(self.splashscreen, self.size)
-
-        icon = pygame.image.load('splashscreen_v1.jpg')
-        icon = pygame.transform.scale(icon, (32, 32))
-        pygame.display.set_icon(icon)
-
+        self.size = width, height = x, y
+        self.splash = pygame.image.load('splashscreen_v1.jpg')
+        self.splash = pygame.transform.scale(self.splash, self.size)
         self.screen = pygame.display.set_mode(self.size, RESIZABLE)
-        pygame.display.set_caption("Solar-System")
+        pygame.display.set_caption("SolarPy")
 
     def setupGL(self):
+        """
+        Lädt OpenGl in PyGame
+        :return:
+        """
         self.screen = pygame.display.set_mode(self.size, DOUBLEBUF | OPENGL)
-
         gluPerspective(self.fieldOfView, (self.size[0] / self.size[1]), 1.0, 100.0)
 
-    def reset(self):
-        self.screen = pygame.display.set_mode(self.size)
+
 
