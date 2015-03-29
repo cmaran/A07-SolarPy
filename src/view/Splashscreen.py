@@ -16,7 +16,7 @@ pygame.display.set_caption("SolarPy")
 while True:
     setDisplay.blit(x,y)
     for event in pygame.event.get():
-        print event
+        print(event)
         if event.tyoe == QUIT:
             pygame.quit()
             sys.exit()
