@@ -1,6 +1,6 @@
 from pygame.constants import *
 
-__author__ = 'cmaran'
+__author__ = 'Berni'
 
 import pygame
 import sys
@@ -63,7 +63,7 @@ def main():
 
     pygame.init()
 
-    icon = pygame.image.load("splashscreen_v1.jpg")
+    icon = pygame.image.load("SunsystemSplash.jpg")
     icon = pygame.transform.scale(icon, (32, 32))
     pygame.display.set_icon(icon)
 
@@ -71,7 +71,7 @@ def main():
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("Solar-System")
 
-    splashscreen = pygame.image.load("splashscreen_v1.jpg")
+    splashscreen = pygame.image.load("SunsystemSplash.jpg")
     splashscreen = pygame.transform.scale(splashscreen, (1280, 720))
 
     while True:
