@@ -11,9 +11,9 @@ class Window:
     screen = None
     splashscreen = None
     size = None
-    fov = 105
+    fieldOfView = 100
 
-    def setupsplash(self, sizex, sizey):
+    def setup(self, sizex, sizey):
 
         self.size = width, height = sizex, sizey
 
@@ -24,14 +24,14 @@ class Window:
         icon = pygame.transform.scale(icon, (32, 32))
         pygame.display.set_icon(icon)
 
-        self.screen = pygame.display.set_mode(self.size)
+        self.screen = pygame.display.set_mode(self.size, RESIZABLE)
         pygame.display.set_caption("Solar-System")
 
-    def setupgl(self):
+    def setupGL(self):
         self.screen = pygame.display.set_mode(self.size, DOUBLEBUF | OPENGL)
 
-        gluPerspective(self.fov, (self.size[0] / self.size[1]), 1.0, 100.0)
+        gluPerspective(self.fieldOfView, (self.size[0] / self.size[1]), 1.0, 100.0)
 
-    def resetup(self):
+    def reset(self):
         self.screen = pygame.display.set_mode(self.size)
 
