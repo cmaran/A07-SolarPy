@@ -1,4 +1,4 @@
-__author__ = 'Berni'
+__author__ = 'cmaran'
 
 import sys
 import pygame
