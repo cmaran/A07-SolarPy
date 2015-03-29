@@ -61,7 +61,7 @@ while True:
         """
         window.setupGL()
         glEnable(GL_TEXTURE_2D)
-        textures.setupTexture()
+        textures.setup()
         light.setup()
         sphere = gluNewQuadric()
         gluQuadricNormals(sphere, GL_FLAT)
@@ -81,7 +81,7 @@ while True:
         1 -> Kameraview Seite
         2 -> Kameraview Oben
         """
-        textures.setupTexture()
+        textures.setup()
         light.setup()
         rotation += speed
 
@@ -101,7 +101,7 @@ while True:
         sun.setUp(1, sphere, textures.sunTexture, 50, 50)
         if lightOn:
             glEnable(GL_LIGHTING)
-        glPopMatrix() 
+        glPopMatrix()
 
         #Setzen des Planet 1
         glPushMatrix()

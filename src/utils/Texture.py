@@ -14,23 +14,23 @@ class Texture:
     earthTexture = None
     moonTexture = None
 
-    def loadTexture(self, filename):
+    def load(self, file):
         """
         Laedt die Textur
-        :param filename: Textur-File
+        :param file: Textur-File
         :return:
         """
-        image = pyglet.image.load(filename)
+        image = pyglet.image.load(file)
         return image
 
-    def setupTexture(self):
+    def setup(self):
         """
         Aktiviert die Textur und speichert diese in ein Attribut
         :return:
         """
         glEnable(GL_TEXTURE_2D)
-        self.sunTexture = self.loadTexture("texture_sun.jpg")
-        self.venusTexture = self.loadTexture("texture_venus_surface.jpg")
-        self.earthTexture = self.loadTexture("texture_earth_clouds.jpg")
-        self.moonTexture = self.loadTexture("texture_moon.jpg")
+        self.sunTexture = self.load("texture_sun.jpg")
+        self.venusTexture = self.load("texture_venus_surface.jpg")
+        self.earthTexture = self.load("texture_earth_clouds.jpg")
+        self.moonTexture = self.load("texture_moon.jpg")
 
