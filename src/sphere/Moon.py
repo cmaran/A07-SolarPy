@@ -6,7 +6,7 @@ from sphere.Sphere import Sphere
 
 class Moon(Sphere):
 
-    def setUp(self, radius, sphere, image, slicesSubDiv, stacksSubDiv):
+    def __init__(self, radius, sphere, image, slicesSubDiv, stacksSubDiv):
         """
         Erstellt den Mond
 

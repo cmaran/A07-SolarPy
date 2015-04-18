@@ -8,8 +8,7 @@ class Sun(Sphere):
     """
     Sonnen-Klasse
     """
-
-    def setUp(self, radius, sphere, image, slicesSubDiv, stacksSubDiv):
+    def __init__(self,radius, sphere, image, slicesSubDiv, stacksSubDiv):
         """
         Erstellt die Sonne
 

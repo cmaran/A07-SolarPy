@@ -13,9 +13,9 @@ class Window:
     screen = None
     splash = None
     size = None
-    fieldOfView = 100
+    fieldOfView = None
 
-    def setup(self, x, y):
+    def __init__(self, x, y, fieldOfView, splashImage):
         """
         Erzeugt das Fenster
         Laedt den Splashscreen und setzt den Titel
@@ -23,12 +23,13 @@ class Window:
         :param y: Auflösung - y
         :return:
         """
-
         self.size = width, height = x, y
-        self.splash = pygame.image.load('splashscreen_v1.jpg')
+        self.fieldOfView = fieldOfView
+        self.splash = pygame.image.load(splashImage)
         self.splash = pygame.transform.scale(self.splash, self.size)
         self.screen = pygame.display.set_mode(self.size, RESIZABLE)
         pygame.display.set_caption("SolarPy")
+
 
     def setupGL(self):
         """

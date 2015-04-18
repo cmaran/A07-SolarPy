@@ -8,7 +8,7 @@ class Sphere:
     """
 
     @abstractmethod
-    def setUp(self, radius, sphere, image, slicesSubDiv, stacksSubDiv):
+    def __init__(self, radius, sphere, image, slicesSubDiv, stacksSubDiv):
         """
         setUp muss von den Subclasses implementiert werden, sonst wird eine Exception geworfen
         :param radius: Radius der Sphere

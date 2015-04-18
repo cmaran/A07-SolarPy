@@ -6,7 +6,8 @@ from sphere.Sphere import Sphere
 
 class Planet(Sphere):
 
-    def setUp(self, radius, sphere, image, slicesSubDiv, stacksSubDiv):
+
+    def __init__(self, radius, sphere, image, slicesSubDiv, stacksSubDiv):
         """
         Erstellt den Planeten
 
@@ -20,3 +21,10 @@ class Planet(Sphere):
         texture = image.get_texture()   #bekommt die uebergebene Textur
         glBindTexture(texture.target, texture.id)   #Bindet diese auf das Objekt
         gluSphere(sphere, radius, slicesSubDiv, stacksSubDiv)
+
+
+    def setRotation(self, angle, x, y, z):
+        glRotatef(angle, x, y, z)
+
+    def setPosition(self,  x, y, z):
+        glTranslatef(x, y, z)
