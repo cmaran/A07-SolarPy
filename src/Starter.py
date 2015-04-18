@@ -15,13 +15,13 @@ from sphere.Planet import Planet
 from sphere.Moon import Moon
 
 
-mode = 1    #Modus um zwischen den Anzeigen(Splashscreen->OpenGl) zu, welchsen
-speed = 0.2   #Standardgeschwindigkeit
-rotation = speed #Rotationsgeschwindigkeit
+mode = 1  # Modus um zwischen den Anzeigen(Splashscreen->OpenGl) zu, welchsen
+speed = 0.2  # Standardgeschwindigkeit
+rotation = speed  # Rotationsgeschwindigkeit
 distance = 0
-lightOn = True  #Flag fürs Lighting
-animation = True    #Flag um die Animation zu starten/stoppen
-view = 1        #Kameraview (default: 1)
+lightOn = True  # Flag fürs Lighting
+animation = True  # Flag um die Animation zu starten/stoppen
+view = 1  # Kameraview (default: 1)
 
 pygame.init()
 window = Window(1650, 1050, 100, 'splashscreen_v1.jpg')
@@ -95,7 +95,7 @@ while True:
         light = Light([0, 1, 0, 0], [0, 0, 0, 1], [1, 1, 1, 1], [1, 1, 1, 1])
         rotation += speed
 
-        #setzen der Kameraview 1
+        # setzen der Kameraview 1
         if distance == 0 and view == 1:
             perspective1 = CamView(1, 5, 1, 0, 0, 0, 0, 1, 0)
             distance = 1
@@ -105,12 +105,11 @@ while True:
             distance = 1
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-
-        glPushMatrix() #Setzen der Sonne
+        glPushMatrix()  #Setzen der Sonne
         glRotatef(rotation, 0, 1, 0)
 
         if lightOn:
-            glDisable(GL_LIGHTING)      #Licht aus damit die Sonne keinen Schatten wirft :)
+            glDisable(GL_LIGHTING)  #Licht aus damit die Sonne keinen Schatten wirft :)
         sun = Sun(1, sphere, sunTexture.texture, 50, 50)
         if lightOn:
             glEnable(GL_LIGHTING)
@@ -137,7 +136,7 @@ while True:
         earth = Planet(0.09, sphere, earthTexture.texture, 50, 50)
 
         #Setzen des Monds
-        glRotatef(5 * rotation , 0, 1, 0)
+        glRotatef(5 * rotation, 0, 1, 0)
         glTranslatef(0.2, 0, 0)
         moon = Moon(0.03, sphere, moonTexture.texture, 50, 50)
         glPopMatrix()
@@ -236,7 +235,6 @@ while True:
                     distance = 0
         glFlush()
 
-
-    pygame.display.flip() #Aktualisiert die Anzeige auf die Bildschirmoberfläche
+    pygame.display.flip()  #Aktualisiert die Anzeige auf die Bildschirmoberfläche
 
 
